@@ -38,7 +38,10 @@ public class Board extends JFrame{
 		stats.setLayout(new BoxLayout(stats, BoxLayout.Y_AXIS));
 		getContentPane().add(stats);
 		
-		
+		//modify action listener to move between the n players 
+		//outside needs to know some amount of player data which may be got be asking and passing to inside
+		//no need to create separate stores outside
+		//may need more functions inside to communicate for this reason
 		JButton roll = new JButton("Roll the die!");
 		roll.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -47,6 +50,7 @@ public class Board extends JFrame{
 				dieResults.setText("You rolled a " + a);
 				player += a;
 				bd.setPlayer(player);
+				bd.ensurePlayerPosition();
 				bd.repaint();
 			}
 		});

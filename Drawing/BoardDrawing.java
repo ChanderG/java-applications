@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 //note: board does not change dynamically 
 //note: board shape and window aesthetics to be set
+//note: unification of colors not done
 
 
 public class BoardDrawing extends JPanel{
@@ -17,15 +18,19 @@ public class BoardDrawing extends JPanel{
 	int row = 8;
 	int col = 8;
 	ArrayList<Rectangle> cells;
-	int player;
+	//int player;
 	int[] cellnos;
 	ArrayList<Portal> portals;
-	
+	ArrayList<Player> players;
 	
 	public BoardDrawing(int row, int col){
 		this.row = row;
 		this.col = col;
-		player = 0;
+		//player = 0;
+		players = new ArrayList<Player>();
+		players.add(new Player());
+		//get and add player(s) names
+		
 		cells = new ArrayList<Rectangle>();
 		
 		cellnos = new int[row*col];
@@ -94,7 +99,7 @@ public class BoardDrawing extends JPanel{
 		}
 	
 
-		g2d.setColor(Color.yellow);
+		g2d.setColor(Color.white);
 		for(Rectangle cell : cells){
 			g2d.fill(cell);
 		}
@@ -105,9 +110,10 @@ public class BoardDrawing extends JPanel{
 		}
 		
 		//Draw cells and numbers
+		//may have to modify program based on number of players
 		
 		g2d.setColor(Color.BLUE);
-		int i=0;
+		int i=0;                                // i is our visible numbering 
 		for(Rectangle cell : cells){
 			
 			String message = "" + cellnos[i];
@@ -115,9 +121,10 @@ public class BoardDrawing extends JPanel{
 			//g2d.setColor(Color.red);
 			
 		    //draw player position
-			if(player == cellnos[i]){
-				g2d.setColor(Color.red);
-				g2d.fillRect(cell.getLocation().x, cell.getLocation().y, cellWidth/4, cellHeight/4);
+			if(players.get(1).returnPosition() == cellnos[i]){                         //only one player considered here
+				
+				g2d.setColor(Color.red);        //change to player color
+				g2d.fillRect(cell.getLocation().x, cell.getLocation().y, cellWidth/4, cellHeight/4);//change to player position
 				g2d.setColor(Color.blue);
 			}
 			
@@ -145,23 +152,35 @@ public class BoardDrawing extends JPanel{
 					break;
 			}
 			
-			
-			//cells.get(i).getCenterX()
-			
 			g2d.drawLine((int)cells.get(ind).getCenterX(),(int) cells.get(ind).getCenterY(),(int) cells.get(j).getCenterX(),(int)cells.get(j).getCenterY());
-			
 			
 		}
 		
-		
-		
-		//Toolkit.getDefaultToolkit().sync();
-		//g2d.dispose();
+	}
+	/*
+	public void ensurePlayerPosition(){
+		for(Portal port :portals){
+			if(player == port.returnStart())
+				player = port.returnEnd();
+		}
+	}
+	*/
+	public void ensurePlayerPosition(Player p){
+		for(Portal port :portals){
+			if(p.returnPosition() == port.returnStart())
+				p.setPosition(port.returnEnd());
+		}
 	}
 	
 	
+	/*
 	public void setPlayer(int a){
 		player = a;
+	}
+	*/
+	
+	public void setPlayer(int a, Player p){
+		p.setPosition(a);
 	}
 	
 	

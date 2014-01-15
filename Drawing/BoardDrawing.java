@@ -19,6 +19,8 @@ public class BoardDrawing extends JPanel{
 	ArrayList<Rectangle> cells;
 	int player;
 	int[] cellnos;
+	ArrayList<Portal> portals;
+	
 	
 	public BoardDrawing(int row, int col){
 		this.row = row;
@@ -42,7 +44,13 @@ public class BoardDrawing extends JPanel{
 	    	}
 	    }
 	    
-	    
+	    int noPorts = 6;
+	    portals = new ArrayList<Portal>(noPorts);
+	    for(int i = 0; i < noPorts;i++){
+	    	Portal temp = new Portal(row*col);
+	    	portals.add(temp);
+	    }
+	
 	}
 	
 	public void paintComponent(Graphics g){
@@ -60,6 +68,8 @@ public class BoardDrawing extends JPanel{
 		g.drawLine(0,0,sw, sh);
 		*/
 	    
+		//Create cells
+		
 		int width = getWidth();
 		int height = getHeight();
 		
@@ -94,6 +104,8 @@ public class BoardDrawing extends JPanel{
 			g2d.draw(cell);
 		}
 		
+		//Draw cells and numbers
+		
 		g2d.setColor(Color.BLUE);
 		int i=0;
 		for(Rectangle cell : cells){
@@ -102,6 +114,7 @@ public class BoardDrawing extends JPanel{
 		    g2d.drawString(message,(int)cell.getCenterX(),(int)cell.getCenterY());
 			//g2d.setColor(Color.red);
 			
+		    //draw player position
 			if(player == cellnos[i]){
 				g2d.setColor(Color.red);
 				g2d.fillRect(cell.getLocation().x, cell.getLocation().y, cellWidth/4, cellHeight/4);
@@ -109,6 +122,35 @@ public class BoardDrawing extends JPanel{
 			}
 			
 		    i++;
+		}
+		
+		//Drawing snakes and ladders
+		for(Portal port:portals){
+			if(port.returnNature() == -1)
+				g2d.setColor(Color.red);
+			else 
+				g2d.setColor(Color.green);
+			
+			int ind;
+			int s = port.returnStart(); 
+			for(ind=0;ind<row*col;ind++){
+				if(cellnos[ind] == s)
+					break;
+			}
+			
+			int j;
+			int e = port.returnEnd(); 
+			for(j=0;j<row*col;j++){
+				if(cellnos[j] == e)
+					break;
+			}
+			
+			
+			//cells.get(i).getCenterX()
+			
+			g2d.drawLine((int)cells.get(ind).getCenterX(),(int) cells.get(ind).getCenterY(),(int) cells.get(j).getCenterX(),(int)cells.get(j).getCenterY());
+			
+			
 		}
 		
 		

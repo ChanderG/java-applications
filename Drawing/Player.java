@@ -18,5 +18,9 @@ public class Player {
 		playerPosn = posn;
 	}
 	
+	public void incPosition(int posn){
+		playerPosn += posn;
+	}
+	
 
 }

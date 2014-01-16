@@ -15,6 +15,7 @@ public class Board extends JFrame{
 	BoardDrawing bd; 
 	JPanel stats;
 	JLabel dieResults;
+	JLabel whichPlayer;
 	
 	public Board(){
 		
@@ -38,6 +39,13 @@ public class Board extends JFrame{
 		stats.setLayout(new BoxLayout(stats, BoxLayout.Y_AXIS));
 		getContentPane().add(stats);
 		
+		
+		String playername = "Player 1";
+		
+		whichPlayer = new JLabel();
+		whichPlayer.setText(playername);
+		stats.add(whichPlayer);
+		
 		//modify action listener to move between the n players 
 		//outside needs to know some amount of player data which may be got be asking and passing to inside
 		//no need to create separate stores outside
@@ -49,8 +57,10 @@ public class Board extends JFrame{
 				int a = die.nextInt(6) + 1;
 				dieResults.setText("You rolled a " + a);
 				player += a;
-				bd.setPlayer(player);
-				bd.ensurePlayerPosition();
+				//bd.setPlayer(player);
+				bd.setPlayer(a, 0);
+				//bd.ensurePlayerPosition();
+				bd.ensurePlayerPosition(0);
 				bd.repaint();
 			}
 		});

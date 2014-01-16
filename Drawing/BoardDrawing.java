@@ -121,7 +121,7 @@ public class BoardDrawing extends JPanel{
 			//g2d.setColor(Color.red);
 			
 		    //draw player position
-			if(players.get(1).returnPosition() == cellnos[i]){                         //only one player considered here
+			if(players.get(0).returnPosition() == cellnos[i]){                         //only one player considered here
 				
 				g2d.setColor(Color.red);        //change to player color
 				g2d.fillRect(cell.getLocation().x, cell.getLocation().y, cellWidth/4, cellHeight/4);//change to player position
@@ -165,10 +165,10 @@ public class BoardDrawing extends JPanel{
 		}
 	}
 	*/
-	public void ensurePlayerPosition(Player p){
+	public void ensurePlayerPosition(int pnos){
 		for(Portal port :portals){
-			if(p.returnPosition() == port.returnStart())
-				p.setPosition(port.returnEnd());
+			if(players.get(pnos).returnPosition() == port.returnStart())
+				players.get(pnos).setPosition(port.returnEnd());
 		}
 	}
 	
@@ -179,8 +179,8 @@ public class BoardDrawing extends JPanel{
 	}
 	*/
 	
-	public void setPlayer(int a, Player p){
-		p.setPosition(a);
+	public void setPlayer(int a, int pnos){
+		players.get(pnos).incPosition(a);
 	}
 	
 	

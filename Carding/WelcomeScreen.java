@@ -1,4 +1,5 @@
 import java.awt.CardLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,8 +14,8 @@ public class WelcomeScreen extends JPanel{
 	JLabel title;
 	JButton go;
 	JButton quit;
-	CardLayout cl;
-	JPanel cards;
+	
+	MainWindow mw;
 	
 	public void setTitle(String t){
 		title.setText(t);
@@ -26,16 +27,11 @@ public class WelcomeScreen extends JPanel{
 	}
 	
 	public void goButtonActionListener(){
-        cl.show(cards,"Two");	
+		mw.showCard("Two");
 	}
  
-    public void setCl(CardLayout c, JPanel cards){
-    	cl = c;
-        this.cards = cards;
-    }
-	
-	public WelcomeScreen(){
-		
+	public WelcomeScreen(MainWindow mw){
+		this.mw = mw;
 		
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		title = new JLabel();
@@ -60,7 +56,6 @@ public class WelcomeScreen extends JPanel{
 		
 		add(go);
 		add(quit);
-		
 	}
 
 }

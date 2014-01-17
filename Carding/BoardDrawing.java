@@ -20,15 +20,19 @@ public class BoardDrawing extends JPanel{
 	ArrayList<Rectangle> cells;
 	//int player;
 	int[] cellnos;
-	ArrayList<Portal> portals;
-	ArrayList<Player> players;
 	
-	public BoardDrawing(int row, int col){
+	BoardScreen bs;
+	//ArrayList<Portal> portals;
+	//ArrayList<Player> players;
+	
+	public BoardDrawing(int row, int col,BoardScreen bs){
+		this.bs = bs;
+		
 		this.row = row;
 		this.col = col;
 		//player = 0;
-		players = new ArrayList<Player>();
-		players.add(new Player());
+		bs.players = new ArrayList<Player>();
+		bs.players.add(new Player());
 		//get and add player(s) names
 		
 		cells = new ArrayList<Rectangle>();
@@ -50,10 +54,10 @@ public class BoardDrawing extends JPanel{
 	    }
 	    
 	    int noPorts = 6;
-	    portals = new ArrayList<Portal>(noPorts);
+	    bs.portals = new ArrayList<Portal>(noPorts);
 	    for(int i = 0; i < noPorts;i++){
 	    	Portal temp = new Portal(row*col);
-	    	portals.add(temp);
+	    	bs.portals.add(temp);
 	    }
 	
 	}
@@ -121,7 +125,7 @@ public class BoardDrawing extends JPanel{
 			//g2d.setColor(Color.red);
 			
 		    //draw player position
-			if(players.get(0).returnPosition() == cellnos[i]){                         //only one player considered here
+			if(bs.players.get(0).returnPosition() == cellnos[i]){                         //only one player considered here
 				
 				g2d.setColor(Color.red);        //change to player color
 				g2d.fillRect(cell.getLocation().x, cell.getLocation().y, cellWidth/4, cellHeight/4);//change to player position
@@ -132,7 +136,7 @@ public class BoardDrawing extends JPanel{
 		}
 		
 		//Drawing snakes and ladders
-		for(Portal port:portals){
+		for(Portal port:bs.portals){
 			if(port.returnNature() == -1)
 				g2d.setColor(Color.red);
 			else 
@@ -165,11 +169,18 @@ public class BoardDrawing extends JPanel{
 		}
 	}
 	*/
-	public void ensurePlayerPosition(int pnos){
-		for(Portal port :portals){
-			if(players.get(pnos).returnPosition() == port.returnStart())
-				players.get(pnos).setPosition(port.returnEnd());
+	public String ensurePlayerPosition(int pnos){
+		String message = "";
+		for(Portal port :bs.portals){
+			if(bs.players.get(pnos).returnPosition() == port.returnStart()){
+				bs.players.get(pnos).setPosition(port.returnEnd());
+				if(port.returnNature() == 1)
+					message += "You are up through ladder at position " + port.returnStart();
+				else if(port.returnNature() == -1)
+					message += "Snake at " + port.returnStart() + " got you.";
+			}
 		}
+		return message; 
 	}
 	
 	
@@ -180,7 +191,7 @@ public class BoardDrawing extends JPanel{
 	*/
 	
 	public void setPlayer(int a, int pnos){
-		players.get(pnos).incPosition(a);
+		bs.players.get(pnos).incPosition(a);
 	}
 	
 	

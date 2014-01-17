@@ -15,8 +15,31 @@ public class MainWindow extends JFrame{
 	String cardDisplayed;
 	CardLayout cl;
 	
+	WelcomeScreen s1;
+	PlayerSelectScreen s2;
+	CustomizeBoardScreen s3;
+	BoardScreen s4;
+	
 	public void showCard(String cardName){
 		cl.show(cards, cardName);
+	}
+	
+	public void resetAll(){
+		s1 = new WelcomeScreen(this);
+		s2 = new PlayerSelectScreen(this);
+		s3 = new CustomizeBoardScreen(this);
+		s4 = new BoardScreen(this);
+		
+		cards.add(s1,"One");
+		cards.add(s2,"Two");
+		cards.add(s3, "Three");
+		cards.add(s4, "Four");
+	}
+	
+	//maintaining board info
+	public void setBoard(){
+		s4 = new BoardScreen(this);
+		cards.add(s4, "Four");
 	}
 	
 	public MainWindow(){
@@ -27,7 +50,7 @@ public class MainWindow extends JFrame{
 		cards.setLayout(new CardLayout());
 		add(cards);
 		
-		WelcomeScreen s1 = new WelcomeScreen(this);
+		s1 = new WelcomeScreen(this);
 		s1.setTitle("Snake and Ladders");
 		
 		/*
@@ -57,10 +80,9 @@ public class MainWindow extends JFrame{
 		
 		
 		
-		PlayerSelectScreen s2 = new PlayerSelectScreen(this);
-		CustomizeBoardScreen s3 = new CustomizeBoardScreen(this);
-		BoardScreen s4 = new BoardScreen(this);
-		
+		s2 = new PlayerSelectScreen(this);
+		s3 = new CustomizeBoardScreen(this);
+		s4 = new BoardScreen(this);
 		
 		cards.add(s1,"One");
 		cards.add(s2,"Two");

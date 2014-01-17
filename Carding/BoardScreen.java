@@ -1,10 +1,10 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,6 +17,13 @@ public class BoardScreen extends JPanel{
 	JPanel stats;
 	JLabel dieResults;
 	JLabel whichPlayer;
+	JLabel extraInfo;
+	
+	ArrayList<Portal> portals;
+	ArrayList<Player> players;
+	
+	
+	
 	MainWindow mw;
 	
 	JButton go;
@@ -29,10 +36,10 @@ public class BoardScreen extends JPanel{
 	
 	public void goButtonActionListener(){
 		mw.showCard("Two");
+		//mw.setBoard();
+		mw.resetAll();
 	}
- 
-	
-	
+ 	
 	public BoardScreen(MainWindow mw){
 		this.mw = mw;
 		
@@ -53,7 +60,7 @@ public class BoardScreen extends JPanel{
 				
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
-	    bd = new BoardDrawing(8, 8);
+	    bd = new BoardDrawing(8, 8,this);
 		bd.setVisible(true);
 		//bd.setSize(getSize());
 		
@@ -81,6 +88,9 @@ public class BoardScreen extends JPanel{
 		whichPlayer.setText(playername);
 		stats.add(whichPlayer);
 		
+		extraInfo = new JLabel();
+		
+		
 		//modify action listener to move between the n players 
 		//outside needs to know some amount of player data which may be got be asking and passing to inside
 		//no need to create separate stores outside
@@ -95,7 +105,7 @@ public class BoardScreen extends JPanel{
 				//bd.setPlayer(player);
 				bd.setPlayer(a, 0);
 				//bd.ensurePlayerPosition();
-				bd.ensurePlayerPosition(0);
+				extraInfo.setText(bd.ensurePlayerPosition(0));
 				bd.repaint();
 			}
 		});
@@ -107,7 +117,7 @@ public class BoardScreen extends JPanel{
 		dieResults = new JLabel();
 		stats.add(dieResults);
 		
-		
+		stats.add(extraInfo);
 		
 	}
 	

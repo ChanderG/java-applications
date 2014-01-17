@@ -34,6 +34,13 @@ public class PlayerSelectScreen extends JPanel {
 		JLabel uc = new JLabel("Default: 1Player");
 		add(uc);
 		
+		//set up radio buttons
+		
+		
+		
+		
+		
+		
 
 		go = new JButton("Customize Board");
 		quit = new JButton("Back");	

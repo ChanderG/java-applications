@@ -30,7 +30,7 @@ public class MainWindow extends JFrame{
 		WelcomeScreen s1 = new WelcomeScreen(this);
 		s1.setTitle("Snake and Ladders");
 		
-		
+		/*
 		JPanel jp2 = new JPanel(new FlowLayout());
 		JLabel jl2 = new JLabel("Panel 2");
 		JButton jb2 = new JButton("Go ahead!");
@@ -45,16 +45,31 @@ public class MainWindow extends JFrame{
 		jp2.add(jl2);
 		jp2.setVisible(true);
 		
-		JPanel jp3 = new JPanel(new FlowLayout());
-		JLabel jl3 = new JLabel("Panel 3");
+		*/
 		
-		jp3.setSize(this.getSize());
-		jp3.add(jl3);
-		jp3.setVisible(true);
+		
+		JPanel jp5 = new JPanel(new FlowLayout());
+		JLabel jl5 = new JLabel("Panel 5");
+		
+		jp5.setSize(this.getSize());
+		jp5.add(jl5);
+		jp5.setVisible(true);
+		
+		
+		
+		PlayerSelectScreen s2 = new PlayerSelectScreen(this);
+		CustomizeBoardScreen s3 = new CustomizeBoardScreen(this);
+		BoardScreen s4 = new BoardScreen(this);
+		
 		
 		cards.add(s1,"One");
-		cards.add(jp2,"Two");
-		cards.add(jp3,"Three");
+		cards.add(s2,"Two");
+		cards.add(s3, "Three");
+		cards.add(s4, "Four");
+		
+		//cards.add(jp2,"Two");
+		//cards.add(jp4,"Four");
+		cards.add(jp5, "Five");
 		
 		cl = (CardLayout)(cards.getLayout());
 		

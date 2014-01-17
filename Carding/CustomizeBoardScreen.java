@@ -4,38 +4,37 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-//needs massive aesthetic rewrites
 
-public class PlayerSelectScreen extends JPanel {
+//needs massive improvements
+
+public class CustomizeBoardScreen extends JPanel {
 	JButton go;
 	JButton quit;
 	MainWindow mw;
 	
 
 	public void quitButtonActionListener(){
-		mw.showCard("One");
+		mw.showCard("Two");
 	}
 	
 	public void goButtonActionListener(){
-		mw.showCard("Three");
+		mw.showCard("Four");
 	}
-	
-	public PlayerSelectScreen(MainWindow mw){
-		this.mw = mw;
-		
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		
-		JLabel mess = new JLabel("Select Players: ");
+  
+	public CustomizeBoardScreen(MainWindow mw){
+	    this.mw = mw;
+	    
+
+		JLabel mess = new JLabel("Customize Board [Under Construction] ");
 		add(mess);
 		
-		JLabel uc = new JLabel("Default: 1Player");
+		JLabel uc = new JLabel("Default: 10x10 board with 10 randomly generated snakes/ladders");
 		add(uc);
-		
-
-		go = new JButton("Customize Board");
+	    
+	    setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+	    go = new JButton("Start Game");
 		quit = new JButton("Back");	
 		
 		go.addActionListener(new ActionListener(){
@@ -52,8 +51,7 @@ public class PlayerSelectScreen extends JPanel {
 		
 		add(go);
 		add(quit);
-		
+			
+			
 	}
-	
-
 }

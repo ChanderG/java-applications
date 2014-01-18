@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -18,7 +19,8 @@ public class BoardScreen extends JPanel{
 	JLabel dieResults;
 	JLabel whichPlayer;
 	JLabel extraInfo;
-	
+	int maxPlayers = 1;
+	int currPlayer = 0;
 	ArrayList<Portal> portals;
 	ArrayList<Player> players;
 	
@@ -39,9 +41,32 @@ public class BoardScreen extends JPanel{
 		//mw.setBoard();
 		mw.resetAll();
 	}
+	
+	public void setMaxPlayers(int m){
+		maxPlayers = m;
+	}
+	
+	public int returnMaxPlayers(){
+		return maxPlayers;
+	}
+	
+	public void setUpPlayers(){
+		players = new ArrayList<Player>();
+		for(int i = 0;i < returnMaxPlayers();i++)
+		    players.add(new Player(i));
+		//get and add player(s) names
+		
+		//manual color entry - automate later
+		if(0 < returnMaxPlayers())players.get(0).setPlayerColor(Color.yellow);
+		if(1 < returnMaxPlayers())players.get(1).setPlayerColor(Color.blue);
+		if(2 < returnMaxPlayers())players.get(2).setPlayerColor(Color.orange);
+		
+	}
  	
 	public BoardScreen(MainWindow mw){
 		this.mw = mw;
+		
+		currPlayer = 0;
 		
 		go = new JButton("New Game");
 		quit = new JButton("Quit");	
@@ -58,6 +83,12 @@ public class BoardScreen extends JPanel{
 			}
 		});
 				
+		players = new ArrayList<Player>();
+		players.add(new Player(currPlayer));
+		//for(int i = 0;i < returnMaxPlayers();i++)
+		//    players.add(new Player(i));
+		//get and add player(s) names
+		
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 	    bd = new BoardDrawing(8, 8,this);
@@ -82,10 +113,12 @@ public class BoardScreen extends JPanel{
 		
 		
 		
-		String playername = "Player 1";
+		//String playername = "Player 1";
+		
+		//currPlayer = 0;
 		
 		whichPlayer = new JLabel();
-		whichPlayer.setText(playername);
+		whichPlayer.setText(players.get(currPlayer).returnName());
 		stats.add(whichPlayer);
 		
 		extraInfo = new JLabel();
@@ -103,10 +136,19 @@ public class BoardScreen extends JPanel{
 				dieResults.setText("You rolled a " + a);
 				player += a;
 				//bd.setPlayer(player);
-				bd.setPlayer(a, 0);
+				bd.setPlayer(a, currPlayer);
 				//bd.ensurePlayerPosition();
-				extraInfo.setText(bd.ensurePlayerPosition(0));
+				extraInfo.setText(bd.ensurePlayerPosition(currPlayer));
 				bd.repaint();
+				
+				if(currPlayer == maxPlayers - 1)
+					currPlayer = 0;
+				else
+					currPlayer += 1;
+				
+				//currPlayer = players.size() - 1;
+				whichPlayer.setText(players.get(currPlayer).returnName());
+				
 			}
 		});
 		roll.setVisible(true);

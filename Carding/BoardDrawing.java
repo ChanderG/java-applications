@@ -31,8 +31,9 @@ public class BoardDrawing extends JPanel{
 		this.row = row;
 		this.col = col;
 		//player = 0;
-		bs.players = new ArrayList<Player>();
-		bs.players.add(new Player());
+		//bs.players = new ArrayList<Player>();
+		//for(int i = 1;i <= bs.returnMaxPlayers();i++)
+		//    bs.players.add(new Player(i));
 		//get and add player(s) names
 		
 		cells = new ArrayList<Rectangle>();
@@ -116,6 +117,8 @@ public class BoardDrawing extends JPanel{
 		//Draw cells and numbers
 		//may have to modify program based on number of players
 		
+		
+		
 		g2d.setColor(Color.BLUE);
 		int i=0;                                // i is our visible numbering 
 		for(Rectangle cell : cells){
@@ -125,10 +128,11 @@ public class BoardDrawing extends JPanel{
 			//g2d.setColor(Color.red);
 			
 		    //draw player position
-			if(bs.players.get(0).returnPosition() == cellnos[i]){                         //only one player considered here
+		    for(int pl = 0;pl < bs.maxPlayers;pl++)
+			if(bs.players.get(pl).returnPosition() == cellnos[i]){                         //only one player considered here
 				
-				g2d.setColor(Color.red);        //change to player color
-				g2d.fillRect(cell.getLocation().x, cell.getLocation().y, cellWidth/4, cellHeight/4);//change to player position
+				g2d.setColor(bs.players.get(pl).returnPlayerColor());        //change to player color
+				g2d.fillRect(cell.getLocation().x + pl*cellWidth/4, cell.getLocation().y, cellWidth/4, cellHeight/4);//change to player position
 				g2d.setColor(Color.blue);
 			}
 			

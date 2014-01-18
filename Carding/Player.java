@@ -1,17 +1,24 @@
+import java.awt.Color;
+
 
 public class Player {
 	private String name;
 	private int playerPosn;
 	private int playerScore;
-	//private Color playerColor;
+	private Color playerColor;
 	
-	public Player(){
-	    name = "Unknown";
+	public Player(int no){
+	    name = "Player " + no;
 	    playerPosn = 0;
 	}
 	
 	public int returnPosition(){
 		return playerPosn;
+	}
+	
+
+	public String returnName(){
+		return name;
 	}
 	
 	public void setPosition(int posn){
@@ -22,5 +29,12 @@ public class Player {
 		playerPosn += posn;
 	}
 	
+	public void setPlayerColor(Color c){
+		playerColor = c;
+	}
+	
+	public Color returnPlayerColor(){
+		return playerColor;
+	}
 
 }

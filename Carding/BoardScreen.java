@@ -23,8 +23,10 @@ public class BoardScreen extends JPanel{
 	int currPlayer = 0;
 	ArrayList<Portal> portals;
 	ArrayList<Player> players;
-	
-	
+	int x;
+	int y;
+	JLabel success;
+	JButton roll;
 	
 	MainWindow mw;
 	
@@ -57,9 +59,9 @@ public class BoardScreen extends JPanel{
 		//get and add player(s) names
 		
 		//manual color entry - automate later
-		if(0 < returnMaxPlayers())players.get(0).setPlayerColor(Color.yellow);
+		if(0 < returnMaxPlayers())players.get(0).setPlayerColor(Color.green);
 		if(1 < returnMaxPlayers())players.get(1).setPlayerColor(Color.blue);
-		if(2 < returnMaxPlayers())players.get(2).setPlayerColor(Color.orange);
+		if(2 < returnMaxPlayers())players.get(2).setPlayerColor(Color.red);
 		
 	}
  	
@@ -89,9 +91,11 @@ public class BoardScreen extends JPanel{
 		//    players.add(new Player(i));
 		//get and add player(s) names
 		
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-	    bd = new BoardDrawing(8, 8,this);
+		x = y = 8;
+		
+	    bd = new BoardDrawing(x, y,this);
 		bd.setVisible(true);
 		//bd.setSize(getSize());
 		
@@ -105,7 +109,7 @@ public class BoardScreen extends JPanel{
 		 
 		
 	    stats = new JPanel();
-		stats.setLayout(new BoxLayout(stats, BoxLayout.Y_AXIS));
+		stats.setLayout(new BoxLayout(stats, BoxLayout.X_AXIS));
 		add(stats);
 		
 		stats.add(go);
@@ -123,12 +127,13 @@ public class BoardScreen extends JPanel{
 		
 		extraInfo = new JLabel();
 		
+		success = new JLabel("");
 		
 		//modify action listener to move between the n players 
 		//outside needs to know some amount of player data which may be got be asking and passing to inside
 		//no need to create separate stores outside
 		//may need more functions inside to communicate for this reason
-		JButton roll = new JButton("Roll the die!");
+		roll = new JButton("Roll the die!");
 		roll.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				Random die = new Random();
@@ -140,6 +145,17 @@ public class BoardScreen extends JPanel{
 				//bd.ensurePlayerPosition();
 				extraInfo.setText(bd.ensurePlayerPosition(currPlayer));
 				bd.repaint();
+				
+				players.get(currPlayer).incPlayerScore(1);
+				
+				for(Player p: players){
+					if(p.returnPosition() >= x*y-1){
+						success.setText("And the winner is: " + p.returnName() + "\nYour score: " + p.returnPlayerScore());
+					    roll.setVisible(false);
+					}
+				}
+				
+				
 				
 				if(currPlayer == maxPlayers - 1)
 					currPlayer = 0;
@@ -160,6 +176,11 @@ public class BoardScreen extends JPanel{
 		stats.add(dieResults);
 		
 		stats.add(extraInfo);
+		stats.add(success);
+		
+		
+		
+		
 		
 	}
 	

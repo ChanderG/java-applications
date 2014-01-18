@@ -36,5 +36,13 @@ public class Player {
 	public Color returnPlayerColor(){
 		return playerColor;
 	}
+	
+	public void incPlayerScore(int a){
+		playerScore += a;
+	}
+	
+	public int returnPlayerScore(){
+		return playerScore;
+	}
 
 }

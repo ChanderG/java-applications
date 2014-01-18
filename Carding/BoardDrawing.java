@@ -135,7 +135,16 @@ public class BoardDrawing extends JPanel{
 				g2d.fillRect(cell.getLocation().x + pl*cellWidth/4, cell.getLocation().y, cellWidth/4, cellHeight/4);//change to player position
 				g2d.setColor(Color.blue);
 			}
-			
+		    
+            if(cellnos[i] == row*col-1){
+            	for(int pl = 0;pl < bs.maxPlayers;pl++)
+        			if(bs.players.get(pl).returnPosition() >= cellnos[i]){                         //only one player considered here
+        				
+        				g2d.setColor(bs.players.get(pl).returnPlayerColor());        //change to player color
+        				g2d.fillRect(cell.getLocation().x + pl*cellWidth/4, cell.getLocation().y, cellWidth/4, cellHeight/4);//change to player position
+        				g2d.setColor(Color.blue);
+        			}   
+            }
 		    i++;
 		}
 		
